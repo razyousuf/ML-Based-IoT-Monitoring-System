@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "author": "Raz M. Yousufi",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 30.01,
+      "left": 55.4,
+      "attrs": { "env": "micropython-20220618-v1.19.1" }
+    },
+    { "type": "wokwi-led", "id": "led1", "top": 54, "left": -121, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 154.28,
+      "left": -33.59,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": 217.2,
+      "left": -101.8,
+      "attrs": { "color": "blue" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 253.55,
+      "left": -57.6,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": 249.9,
+      "left": 71.4,
+      "attrs": { "humidity": "64.5", "temperature": "32.6" }
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": 190.19,
+      "left": -189.63,
+      "attrs": {}
+    },
+    { "type": "wokwi-vcc", "id": "vcc1", "top": 270.31, "left": -209.54, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": 303.76, "left": -87.15, "attrs": {} },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir2",
+      "top": 28.04,
+      "left": -206.96,
+      "attrs": {}
+    },
+    { "type": "wokwi-gnd", "id": "gnd2", "top": 143.07, "left": -90.64, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "studio-room",
+      "top": 165.7,
+      "left": -264.7,
+      "attrs": { "text": "Raz Room (BLUE)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "dog-room",
+      "top": -2.84,
+      "left": -280.36,
+      "attrs": { "text": "Dog's Room (RED)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "temp-reminder",
+      "top": 113.69,
+      "left": -373.59,
+      "attrs": { "text": "60F : 75F = 16.6C : 23.9C" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht2",
+      "top": -20.1,
+      "left": -17.06,
+      "attrs": { "humidity": "80.5", "temperature": "53.8" }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd2",
+      "top": -117.23,
+      "left": 261.45,
+      "attrs": { "pins": "i2c" }
+    },
+    { "type": "wokwi-vcc", "id": "vcc2", "top": -56.97, "left": -33.62, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd3", "top": -57.43, "left": 53.82, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "esp:D12", "r1:2", "red", [ "h-54.59", "v-0.1", "h-39.56" ] ],
+    [ "esp:D13", "r2:2", "blue", [ "h0" ] ],
+    [ "r1:1", "led1:A", "red", [ "v3.27", "h-24.01" ] ],
+    [ "led2:A", "r2:1", "blue", [ "h4.16", "v-117.2" ] ],
+    [ "led2:C", "esp:GND.2", "black", [ "v12.86", "h104.62", "v-120" ] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "v17.86", "h105.49", "v-192.13" ] ],
+    [ "dht1:SDA", "esp:D15", "green", [ "v27.33", "h112.09", "v-220.6" ] ],
+    [ "dht1:GND", "esp:GND.1", "black", [ "v33.96", "h110.78", "v-217.73" ] ],
+    [ "led1:C", "esp:GND.2", "black", [ "v86.4", "h166.4" ] ],
+    [ "pir1:VCC", "vcc1:VCC", "red", [ "v33.68", "h-4.97" ] ],
+    [ "pir1:GND", "gnd1:GND", "black", [ "v9.66", "h56.31" ] ],
+    [ "pir1:OUT", "esp:D14", "green", [ "v31.49", "h177.43", "v-162.29" ] ],
+    [ "pir2:VCC", "vcc1:VCC", "red", [ "v32.81", "h-108.2", "v145.5" ] ],
+    [ "pir2:GND", "gnd2:GND", "black", [ "v0" ] ],
+    [ "pir2:OUT", "esp:D26", "green", [ "v9.52", "h68.13" ] ],
+    [ "dht2:SDA", "esp:D25", "green", [ "v0" ] ],
+    [ "dht2:VCC", "vcc2:VCC", "red", [ "v18.83", "h-21.61", "v-142.56" ] ],
+    [ "dht2:GND", "gnd3:GND", "black", [ "v15.65", "h20.57", "v-200.23" ] ],
+    [ "lcd2:GND", "esp:GND.1", "black", [ "h-12.65", "v264.24" ] ],
+    [ "lcd2:VCC", "esp:3V3", "red", [ "v2.5", "h-30.62", "v261.74" ] ],
+    [ "lcd2:SDA", "esp:D21", "green", [ "h-65.56", "v159.14" ] ],
+    [ "lcd2:SCL", "esp:D22", "yellow", [ "h-50.59", "v120.99", "h-58.16" ] ]
+  ],
+  "dependencies": {}
+}
