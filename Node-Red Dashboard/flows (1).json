@@ -1,0 +1,491 @@
+[
+    {
+        "id": "76967cc1d47249e3",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "733ea9aa94b95dac",
+        "type": "ui_gauge",
+        "z": "76967cc1d47249e3",
+        "name": "",
+        "group": "6b93f12ca07d585d",
+        "order": 3,
+        "width": "4",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Humidity Gauge",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6d0305eb02db5b73",
+        "type": "ui_gauge",
+        "z": "76967cc1d47249e3",
+        "name": "",
+        "group": "6b93f12ca07d585d",
+        "order": 1,
+        "width": "4",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Temperature Gauge",
+        "label": "F",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "200",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 540,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "0a1f6c484072cf65",
+        "type": "ui_switch",
+        "z": "76967cc1d47249e3",
+        "name": "",
+        "label": "Red LED",
+        "tooltip": "",
+        "group": "6b93f12ca07d585d",
+        "order": 7,
+        "width": "4",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "{\"command\":\"lamp/red/on\"}",
+        "onvalueType": "json",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "{\"command\":\"lamp/red/off\"}",
+        "offvalueType": "json",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "8180ba86b1f4ceb4"
+            ]
+        ]
+    },
+    {
+        "id": "11df63b4e3e34e7e",
+        "type": "ui_switch",
+        "z": "76967cc1d47249e3",
+        "name": "",
+        "label": "Blue LED",
+        "tooltip": "",
+        "group": "6b93f12ca07d585d",
+        "order": 8,
+        "width": "4",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "{\"command\":\"lamp/blue/on\"}",
+        "onvalueType": "json",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "{\"command\":\"lamp/blue/off\"}",
+        "offvalueType": "json",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "x": 400,
+        "y": 440,
+        "wires": [
+            [
+                "f8fde258fc28f047"
+            ]
+        ]
+    },
+    {
+        "id": "8180ba86b1f4ceb4",
+        "type": "mqtt out",
+        "z": "76967cc1d47249e3",
+        "name": "Red Light",
+        "topic": "iot/device/wokwi001/control",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1a077211a907c81a",
+        "x": 620,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f8fde258fc28f047",
+        "type": "mqtt out",
+        "z": "76967cc1d47249e3",
+        "name": "Blue Light",
+        "topic": "iot/device/wokwi001/control",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1a077211a907c81a",
+        "x": 620,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "24b88795373c52e8",
+        "type": "mqtt in",
+        "z": "76967cc1d47249e3",
+        "name": "Incoming MSG",
+        "topic": "iot/device/wokwi001/telemetry",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1a077211a907c81a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "192b4be468323182",
+                "bf46e5198a5486ec",
+                "9eb9d8fa1bce9357",
+                "e6d3183c9d39e901"
+            ]
+        ]
+    },
+    {
+        "id": "192b4be468323182",
+        "type": "function",
+        "z": "76967cc1d47249e3",
+        "name": "Temp_Func",
+        "func": "// Check if msg.payload exists and if it's an object\nif (msg.payload && typeof msg.payload === 'object') {\n    // Access the temperature value from the object\n    var temperature = msg.payload.temp;\n\n    // Set the output payload to the temperature value\n    msg.payload = temperature;\n} else {\n    // If msg.payload is not an object or doesn't have the temperature value, set payload to null\n    msg.payload = null;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 20,
+        "wires": [
+            [
+                "6d0305eb02db5b73",
+                "a79243c606456310"
+            ]
+        ]
+    },
+    {
+        "id": "bf46e5198a5486ec",
+        "type": "function",
+        "z": "76967cc1d47249e3",
+        "name": "Hum_Func",
+        "func": "// Check if msg.payload exists and if it's an object\nif (msg.payload && typeof msg.payload === 'object') {\n    // Access the temperature value from the object\n    var humidity = msg.payload.humidity;\n\n    // Set the output payload to the temperature value\n    msg.payload = humidity;\n} else {\n    // If msg.payload is not an object or doesn't have the temperature value, set payload to null\n    msg.payload = null;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "733ea9aa94b95dac",
+                "40cff8d447886ec6"
+            ]
+        ]
+    },
+    {
+        "id": "a79243c606456310",
+        "type": "ui_chart",
+        "z": "76967cc1d47249e3",
+        "name": "",
+        "group": "6b93f12ca07d585d",
+        "order": 2,
+        "width": "4",
+        "height": "2",
+        "label": "Temp Chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 455,
+        "y": 60,
+        "wires": [
+            []
+        ],
+        "l": false
+    },
+    {
+        "id": "40cff8d447886ec6",
+        "type": "ui_chart",
+        "z": "76967cc1d47249e3",
+        "name": "",
+        "group": "6b93f12ca07d585d",
+        "order": 4,
+        "width": "4",
+        "height": "2",
+        "label": "Humidity Chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 455,
+        "y": 160,
+        "wires": [
+            []
+        ],
+        "l": false
+    },
+    {
+        "id": "19d25f94eeccdc08",
+        "type": "file",
+        "z": "76967cc1d47249e3",
+        "name": "",
+        "filename": "F:\\Hope_University\\!Second Semester\\IoT\\Project2\\datalog.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 650,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9eb9d8fa1bce9357",
+        "type": "function",
+        "z": "76967cc1d47249e3",
+        "name": "Log_Func",
+        "func": "// Initialize a flag to track if the header has been appended\nif (context.get('headerAppended') === undefined) {\n    context.set('headerAppended', true);\n    msg.payload = \"Timestamp, Temperature, Humidity\\n\"; // Set the header\n} else {\n    // Check if msg.payload exists and if it's an object\n    if (msg.payload && typeof msg.payload === 'object') {\n        // Check if the payload type is \"sensor\"\n        if (msg.payload.type === \"sensor\") {\n            var timestamp = new Date().toISOString(); // Get the current timestamp in ISO 8601 format\n            var temperature = msg.payload.temp; // Get the temperature value from msg.payload\n            var humidity = msg.payload.humidity; // Get the humidity value from msg.payload\n\n            // Create the CSV string with values\n            var csv = timestamp + \", \" + temperature + \", \" + humidity + \"\\n\";\n\n            // Set the output payload to the CSV string\n            msg.payload = csv;\n        } else {\n            // If the payload type is not \"sensor\", set payload to null\n            msg.payload = null;\n        }\n    } else {\n        // If msg.payload is not an object, set payload to null\n        msg.payload = null;\n    }\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "19d25f94eeccdc08"
+            ]
+        ]
+    },
+    {
+        "id": "e6d3183c9d39e901",
+        "type": "function",
+        "z": "76967cc1d47249e3",
+        "name": "motion",
+        "func": "if (msg.payload && typeof msg.payload === 'object') {\n    var motionDog = msg.payload.motion_dog;\n    var motionRaz = msg.payload.motion_raz;\n\n    var ledStatus = { color: \"green\", text: \"No Motion\" };\n    if (motionDog === 'true') {\n        ledStatus = { color: \"red\", text: \"Motion in Dog\" };\n    } else if (motionRaz === 'true') {\n        ledStatus = { color: \"red\", text: \"Motion in Raz\" };\n    }\n\n    msg.payload = ledStatus;\n} else {\n    msg.payload = { color: \"green\", text: \"No Motion\" };\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "09e53487a43ddba9",
+                "6183a1851c24be57"
+            ]
+        ]
+    },
+    {
+        "id": "09e53487a43ddba9",
+        "type": "ui-led",
+        "z": "76967cc1d47249e3",
+        "name": "Motion Status",
+        "group": "status",
+        "order": -1,
+        "width": "4",
+        "height": "1",
+        "label": "motion status",
+        "labelPlacement": "left",
+        "labelAlignment": "center",
+        "states": [
+            {
+                "value": "true",
+                "valueType": "bool",
+                "color": "#ff0000"
+            },
+            {
+                "value": "false",
+                "valueType": "bool",
+                "color": "#00ff00"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showBorder": true,
+        "showGlow": true,
+        "x": 560,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "6183a1851c24be57",
+        "type": "ui_led",
+        "z": "76967cc1d47249e3",
+        "order": 6,
+        "group": "6b93f12ca07d585d",
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 570,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6b93f12ca07d585d",
+        "type": "ui_group",
+        "z": "76967cc1d47249e3",
+        "name": "RazMLoT",
+        "tab": "f3951ae7f5333934",
+        "order": 2,
+        "disp": true,
+        "width": "4",
+        "collapse": false
+    },
+    {
+        "id": "1a077211a907c81a",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "5ef675a2962542dc975a98b116ba9add.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "1",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f3951ae7f5333934",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
