@@ -149,6 +149,7 @@ You can manually control the LEDs (fans) via MQTT commands. Send control message
     {"command": "lamp/blue/off"}
   ```
  - Adjust brightness of LEDs:
+
    ```bash 
     {"command": "lamp/red/brightness/50"}
    ```
