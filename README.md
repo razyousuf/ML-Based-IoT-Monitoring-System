@@ -147,9 +147,8 @@ You can manually control the LEDs (fans) via MQTT commands. Send control message
  - Turn off the Blue LED (Raz Room):
    ```bash
     {"command": "lamp/blue/off"}
-  ```
+   ```
  - Adjust brightness of LEDs:
-
    ```bash 
     {"command": "lamp/red/brightness/50"}
    ```
@@ -159,13 +158,13 @@ You can manually control the LEDs (fans) via MQTT commands. Send control message
 The system continuously sends temperature, humidity, and motion data to the telemetry topic:
 
   ```bash
-    {
-  "device_id": "wokwi001",
-  "temp": 24.5,
-  "humidity": 60,
-  "motion_dog": "true",
-  "motion_raz": "false",
-  "type": "sensor"
+  {
+    "device_id": "wokwi001",
+    "temp": 24.5,
+    "humidity": 60,
+    "motion_dog": "true",
+    "motion_raz": "false",
+    "type": "sensor"
   }
   ```
 
