@@ -113,6 +113,7 @@ The **FastAPI-based ML model** is deployed on a remote server to predict tempera
   }
 ```
 
+![API](./images/API_and_Devices.png)
 
 #### **Connecting to WiFi**
 Edit the **WiFi credentials** in the code to connect to your local WiFi:
