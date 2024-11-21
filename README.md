@@ -46,7 +46,7 @@ The project architecture involves the following components:
    - Handles communication between the ESP devices and other control systems like Google Home or a mobile app.
    
 3. **FastAPI-based Machine Learning API**:
-   - A remote **FastAPI** server hosts a **Random Forest machine learning model** trained to predict temperature, humidity and motion based on historical data.
+   - The Server running on a **FastAPI**, hosts a **Random Forest machine learning model** that has been trained on [Google Colab](https://colab.research.google.com/drive/10LZSqVmMpYjg1QeIRA9fAuAfpc--r8ZF?usp=sharing) to predict temperature, humidity and motion based on historical data.
    - The API is queried by the ESP device to adjust the system automatically based on predictions.
 
 ---
